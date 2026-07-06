@@ -38,6 +38,32 @@ body{background:#fff;color:oklch(14% 0.01 260);font-family:'Noto Serif JP',serif
 a{color:inherit;text-decoration:none}
 button{font-family:inherit;cursor:pointer}
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:768px){
+  nav{padding:0 20px !important;}
+  nav > div:last-child > a:not(:last-child){display:none !important;}
+  nav > div:last-child{gap:0 !important;}
+  [data-screen-label="Hero"]{min-height:560px !important;}
+  [data-screen-label="Hero"] > div[style*="padding:0 72px"]{padding:0 24px 48px !important;}
+  [data-screen-label="Hero"] h1{font-size:32px !important;}
+  [data-screen-label="Hero"] > div[style*="padding:0 72px"] > div[style*="display:flex"]{flex-direction:column !important;align-items:flex-start !important;}
+  section{padding:60px 24px !important;}
+  [data-screen-label="タトゥーについて"] > div > div[style*="grid-template-columns:1fr 2fr"]{grid-template-columns:1fr !important;gap:24px !important;}
+  [data-screen-label="タトゥーについて"] > div > div[style*="repeat(3,1fr)"]{grid-template-columns:1fr !important;}
+  [data-screen-label="STAYNAVI誘導"] > div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important;}
+  [data-screen-label="STAYNAVI誘導"] > div > div[style*="min-height:520px"]{min-height:240px !important;}
+  [data-screen-label="STAYNAVI誘導"] > div > div[style*="padding:80px 72px"]{padding:40px 24px !important;}
+  [data-screen-label="STAYNAVI誘導"] > div > div > div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important;}
+  [data-screen-label="温泉文化"] > div > div[style*="margin-bottom:72px"]{margin-bottom:36px !important;}
+  [data-screen-label="温泉文化"] > div > div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important;}
+  [data-screen-label="温泉文化"] > div > div > div[style*="min-height:220px"]{min-height:200px !important;}
+  [data-screen-label="マナー"] > div > div[style*="grid-template-columns:280px"]{grid-template-columns:1fr !important;gap:32px !important;}
+  [data-screen-label="マナー"] > div > div > div[style*="grid-template-columns:1fr 1fr 1fr"]{grid-template-columns:1fr !important;}
+  [data-screen-label="CTA"]{padding:80px 24px !important;}
+  [data-screen-label="CTA"] h2{font-size:24px !important;}
+  footer{padding:48px 24px 36px !important;}
+  footer > div > div[style*="grid-template-columns:2fr"]{grid-template-columns:1fr !important;gap:36px !important;}
+  footer > div > div[style*="justify-content:space-between"]{flex-direction:column !important;gap:12px !important;align-items:flex-start !important;}
+}
 </style>
 </helmet>
 
