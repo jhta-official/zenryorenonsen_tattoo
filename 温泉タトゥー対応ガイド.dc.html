@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<template id="__bundler_thumbnail" data-bg-color="#1a1c24">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="1200" height="800" fill="#1a1c24"/>
+    <!-- Decorative horizontal line -->
+    <line x1="440" y1="360" x2="760" y2="360" stroke="#c8a97e" stroke-width="1" opacity="0.6"/>
+    <!-- Simple torii gate silhouette -->
+    <rect x="565" y="290" width="12" height="140" fill="#c8a97e" opacity="0.7"/>
+    <rect x="623" y="290" width="12" height="140" fill="#c8a97e" opacity="0.7"/>
+    <rect x="548" y="295" width="104" height="10" rx="2" fill="#c8a97e" opacity="0.9"/>
+    <rect x="556" y="315" width="88" height="8" rx="2" fill="#c8a97e" opacity="0.7"/>
+    <!-- Steam wisps -->
+    <path d="M490 370 Q495 355 490 340 Q485 325 490 310" stroke="#c8a97e" stroke-width="2" fill="none" opacity="0.35"/>
+    <path d="M710 370 Q715 355 710 340 Q705 325 710 310" stroke="#c8a97e" stroke-width="2" fill="none" opacity="0.35"/>
+    <!-- Title text area -->
+    <rect x="460" y="450" width="280" height="3" fill="#c8a97e" opacity="0.4"/>
+    <rect x="510" y="465" width="180" height="3" fill="#c8a97e" opacity="0.25"/>
+    <rect x="530" y="482" width="140" height="3" fill="#c8a97e" opacity="0.15"/>
+  </svg>
+</template>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Serif+JP:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#fff;color:oklch(14% 0.01 260);font-family:'Noto Serif JP',serif;-webkit-font-smoothing:antialiased;line-height:1.8}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</helmet>
+
+<!-- NAV -->
+<nav style="position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border-bottom:1px solid oklch(92% 0.005 60);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 48px">
+  <div style="font-family:'Noto Serif JP',serif;font-size:14px;font-weight:500;letter-spacing:0.1em;color:oklch(14% 0.01 260)">温泉タトゥー対応ガイド</div>
+  <div style="display:flex;gap:32px;align-items:center">
+    <a href="#tattoo-info" style="font-size:12px;font-family:'Noto Sans JP',sans-serif;color:oklch(48% 0.01 260);letter-spacing:0.06em" style-hover="color:oklch(14% 0.01 260)">タトゥーについて</a>
+    <a href="#staynavi" style="font-size:12px;font-family:'Noto Sans JP',sans-serif;color:oklch(48% 0.01 260);letter-spacing:0.06em" style-hover="color:oklch(14% 0.01 260)">施設を探す</a>
+    <a href="#culture" style="font-size:12px;font-family:'Noto Sans JP',sans-serif;color:oklch(48% 0.01 260);letter-spacing:0.06em" style-hover="color:oklch(14% 0.01 260)">温泉文化</a>
+    <a href="#faq" style="font-size:12px;font-family:'Noto Sans JP',sans-serif;color:oklch(48% 0.01 260);letter-spacing:0.06em" style-hover="color:oklch(14% 0.01 260)">FAQ</a>
+    <a href="#staynavi" style="font-size:12px;font-family:'Noto Sans JP',sans-serif;padding:10px 22px;border:1px solid oklch(14% 0.01 260);letter-spacing:0.08em;color:oklch(14% 0.01 260)" style-hover="background:oklch(14% 0.01 260);color:#fff">施設を探す →</a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<div data-screen-label="Hero" style="position:relative;height:92vh;min-height:640px;overflow:hidden;display:flex;align-items:flex-end">
+  <!-- Hero photo -->
+  <img src="uploads/hero_c.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%">
+  <!-- Gradient overlay -->
+  <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.22) 55%,rgba(0,0,0,0.08) 100%)"></div>
+  <!-- Content -->
+  <div style="position:relative;z-index:2;padding:0 72px 72px;max-width:900px">
+    <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:rgba(255,255,255,0.65);letter-spacing:0.22em;margin-bottom:18px">Harmony with Onsen Culture</div>
+    <h1 style="font-family:'Noto Serif JP',serif;font-size:52px;font-weight:300;color:#fff;line-height:1.45;letter-spacing:0.06em;margin-bottom:22px">安心して楽しめる温泉を、<br>探そう。</h1>
+    <p style="font-size:16px;color:rgba(255,255,255,0.78);font-family:'Noto Serif JP',serif;letter-spacing:0.06em;line-height:1.9;margin-bottom:36px">全国の宿泊施設・温泉施設のタトゥー対応状況をご案内します。</p>
+    <div style="display:flex;gap:16px;align-items:center">
+      <a href="タトゥー対応施設検索.dc.html" style="display:inline-flex;align-items:center;gap:10px;padding:14px 36px;background:#fff;color:oklch(14% 0.01 260);font-family:'Noto Sans JP',sans-serif;font-size:13px;letter-spacing:0.1em" style-hover="background:oklch(96% 0.004 60)">
+        STAYNAVIで施設を探す →
+      </a>
+      <a href="#tattoo-info" style="font-size:13px;color:rgba(255,255,255,0.75);font-family:'Noto Sans JP',sans-serif;letter-spacing:0.06em;border-bottom:1px solid rgba(255,255,255,0.4);padding-bottom:2px" style-hover="color:#fff;border-bottom-color:rgba(255,255,255,0.8)">
+        タトゥーについて詳しく
+      </a>
+    </div>
+  </div>
+  <!-- Scroll hint -->
+  <div style="position:absolute;bottom:28px;right:48px;display:flex;flex-direction:column;align-items:center;gap:6px">
+    <div style="width:1px;height:32px;background:linear-gradient(to bottom,rgba(255,255,255,0.5),transparent)"></div>
+    <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:0.2em">SCROLL</span>
+  </div>
+</div>
+
+<!-- ═══ タトゥーについて（ヒーロー直下） ═══ -->
+<section id="tattoo-info" data-screen-label="タトゥーについて" style="padding:100px 72px;background:#fff">
+  <div style="max-width:1100px;margin:0 auto">
+    <!-- Section heading -->
+    <div style="display:grid;grid-template-columns:1fr 2fr;gap:80px;align-items:start;margin-bottom:72px">
+      <div>
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:oklch(58% 0.01 260);letter-spacing:0.2em;margin-bottom:12px">About Tattoos in Onsen</div>
+        <h2 style="font-family:'Noto Serif JP',serif;font-size:34px;font-weight:300;line-height:1.55;letter-spacing:0.08em;color:oklch(12% 0.01 260)">タトゥーに<br>ついて</h2>
+        <div style="width:32px;height:1px;background:oklch(62% 0.07 82);margin-top:24px"></div>
+      </div>
+      <p style="font-family:'Noto Serif JP',serif;font-size:15px;color:oklch(42% 0.01 260);line-height:2;letter-spacing:0.05em;padding-top:36px">日本の温泉施設でのタトゥー対応は、施設ごとに方針が異なります。このサイトでは各施設の方針を正確にお伝えするとともに、安心してご利用いただけるよう情報をご案内しています。</p>
+    </div>
+
+    <!-- 3 cards (法律についてを削除) -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:oklch(92% 0.005 60)">
+      <div style="background:#fff;padding:40px 36px">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.16em;color:oklch(55% 0.06 255);margin-bottom:14px">01</div>
+        <h3 style="font-family:'Noto Serif JP',serif;font-size:17px;font-weight:500;color:oklch(14% 0.01 260);margin-bottom:16px;letter-spacing:0.05em;line-height:1.6">施設ごとの方針</h3>
+        <p style="font-size:14px;line-height:2;color:oklch(42% 0.01 260);font-family:'Noto Serif JP',serif;letter-spacing:0.04em">制限なし・条件付き・貸切風呂のみ・利用不可と、施設によって対応はさまざまです。このサイトでは各施設の方針を正確にお伝えします。</p>
+      </div>
+      <div style="background:#fff;padding:40px 36px">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.16em;color:oklch(55% 0.06 255);margin-bottom:14px">02</div>
+        <h3 style="font-family:'Noto Serif JP',serif;font-size:17px;font-weight:500;color:oklch(14% 0.01 260);margin-bottom:16px;letter-spacing:0.05em;line-height:1.6">様々な対応の形</h3>
+        <p style="font-size:14px;line-height:2;color:oklch(42% 0.01 260);font-family:'Noto Serif JP',serif;letter-spacing:0.04em">カバーシール対応、貸切風呂利用、時間帯を分けた利用など、施設によって柔軟な運用が進んでいます。施設への事前相談をおすすめします。</p>
+      </div>
+      <div style="background:#fff;padding:40px 36px">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.16em;color:oklch(55% 0.06 255);margin-bottom:14px">03</div>
+        <h3 style="font-family:'Noto Serif JP',serif;font-size:17px;font-weight:500;color:oklch(14% 0.01 260);margin-bottom:16px;letter-spacing:0.05em;line-height:1.6">医療タトゥーについて</h3>
+        <p style="font-size:14px;line-height:2;color:oklch(42% 0.01 260);font-family:'Noto Serif JP',serif;letter-spacing:0.04em">乳がん術後の再建や白斑治療などの医療目的のタトゥーについても、施設により対応が異なります。STAYNAVIの「医療タトゥー相談可」フィルターでご確認ください。</p>
+      </div>
+    </div>
+
+    <div style="margin-top:32px;padding:22px 32px;background:oklch(97% 0.006 60);border-left:2px solid oklch(62% 0.07 82)">
+      <p style="font-family:'Noto Serif JP',serif;font-size:14px;color:oklch(30% 0.01 260);letter-spacing:0.07em;line-height:1.8">事前に施設へご確認いただくことをおすすめします。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STAYNAVI ═══ -->
+<section id="staynavi" data-screen-label="STAYNAVI誘導" style="padding:0;background:oklch(97% 0.007 60);overflow:hidden">
+  <div style="display:grid;grid-template-columns:1fr 1fr">
+    <!-- Left: photo -->
+    <div style="position:relative;min-height:520px;overflow:hidden">
+      <img src="uploads/onsen2_c.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center">
+    </div>
+    <!-- Right: content -->
+    <div style="padding:80px 72px;display:flex;flex-direction:column;justify-content:center">
+      <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:oklch(55% 0.01 260);letter-spacing:0.2em;margin-bottom:14px">Find Your Onsen</div>
+      <h2 style="font-family:'Noto Serif JP',serif;font-size:34px;font-weight:300;letter-spacing:0.1em;margin-bottom:20px;line-height:1.55;color:oklch(12% 0.01 260)">施設を探す</h2>
+      <div style="width:32px;height:1px;background:oklch(62% 0.07 82);margin-bottom:28px"></div>
+      <p style="font-size:14px;color:oklch(42% 0.01 260);font-family:'Noto Serif JP',serif;line-height:2;letter-spacing:0.05em;margin-bottom:40px">全国の温泉・旅館・ホテルのタトゥー対応状況は、STAYNAVIにてご確認いただけます。施設ごとの詳細情報・貸切風呂情報・条件タグを掲載しています。</p>
+
+      <!-- Status legend -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:40px">
+        <div style="padding:14px 16px;background:#fff;display:flex;align-items:center;gap:12px">
+          <span style="font-size:18px;color:oklch(38% 0.1 255);width:24px;text-align:center">◎</span>
+          <div>
+            <div style="font-size:12px;font-weight:500;color:oklch(22% 0.01 260);font-family:'Noto Serif JP',serif;letter-spacing:0.04em">制限なし</div>
+            <div style="font-size:10px;color:oklch(55% 0.01 260);font-family:'Noto Serif JP',serif;margin-top:2px">大浴場を自由にご利用可</div>
+          </div>
+        </div>
+        <div style="padding:14px 16px;background:#fff;display:flex;align-items:center;gap:12px">
+          <span style="font-size:18px;color:oklch(36% 0.09 168);width:24px;text-align:center">○</span>
+          <div>
+            <div style="font-size:12px;font-weight:500;color:oklch(22% 0.01 260);font-family:'Noto Serif JP',serif;letter-spacing:0.04em">条件付き利用可</div>
+            <div style="font-size:10px;color:oklch(55% 0.01 260);font-family:'Noto Serif JP',serif;margin-top:2px">カバーシール等の条件あり</div>
+          </div>
+        </div>
+        <div style="padding:14px 16px;background:#fff;display:flex;align-items:center;gap:12px">
+          <span style="font-size:18px;color:oklch(52% 0.1 60);width:24px;text-align:center">△</span>
+          <div>
+            <div style="font-size:12px;font-weight:500;color:oklch(22% 0.01 260);font-family:'Noto Serif JP',serif;letter-spacing:0.04em">貸切風呂のみ</div>
+            <div style="font-size:10px;color:oklch(55% 0.01 260);font-family:'Noto Serif JP',serif;margin-top:2px">プライベート浴槽のみ可</div>
+          </div>
+        </div>
+        <div style="padding:14px 16px;background:#fff;display:flex;align-items:center;gap:12px">
+          <span style="font-size:18px;color:oklch(38% 0.07 25);width:24px;text-align:center">×</span>
+          <div>
+            <div style="font-size:12px;font-weight:500;color:oklch(22% 0.01 260);font-family:'Noto Serif JP',serif;letter-spacing:0.04em">利用不可</div>
+            <div style="font-size:10px;color:oklch(55% 0.01 260);font-family:'Noto Serif JP',serif;margin-top:2px">施設方針により不可</div>
+          </div>
+        </div>
+        <div style="padding:14px 16px;background:#fff;display:flex;align-items:center;gap:12px">
+          <span style="font-size:18px;color:oklch(42% 0.09 310);width:24px;text-align:center">□</span>
+          <div>
+            <div style="font-size:12px;font-weight:500;color:oklch(22% 0.01 260);font-family:'Noto Serif JP',serif;letter-spacing:0.04em">医療タトゥーのみOK</div>
+            <div style="font-size:10px;color:oklch(55% 0.01 260);font-family:'Noto Serif JP',serif;margin-top:2px">医療目的のタトゥーに限り相談・利用可</div>
+          </div>
+        </div>
+      </div>
+
+      <a href="タトゥー対応施設検索.dc.html" style="display:inline-flex;align-items:center;gap:12px;padding:15px 36px;background:oklch(14% 0.01 260);color:#fff;font-family:'Noto Sans JP',sans-serif;font-size:13px;letter-spacing:0.1em;align-self:flex-start" style-hover="background:oklch(25% 0.02 260)">
+        STAYNAVIで探す →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 温泉文化 ═══ -->
+<section id="culture" data-screen-label="温泉文化" style="padding:100px 72px;background:#fff">
+  <div style="max-width:1100px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:72px">
+      <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:oklch(55% 0.01 260);letter-spacing:0.2em;margin-bottom:12px">Japanese Onsen Culture</div>
+      <h2 style="font-family:'Noto Serif JP',serif;font-size:34px;font-weight:300;color:oklch(12% 0.01 260);letter-spacing:0.1em">日本の温泉文化とは</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:oklch(92% 0.005 60);margin-bottom:2px">
+      <div style="background:#fff;padding:48px 40px;display:flex;gap:28px">
+        <div style="flex-shrink:0">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.16em;color:oklch(55% 0.06 255)">01</div>
+          <div style="width:1px;height:40px;background:oklch(88% 0.01 82);margin:10px auto"></div>
+        </div>
+        <div>
+          <h3 style="font-family:'Noto Serif JP',serif;font-size:17px;font-weight:500;color:oklch(14% 0.01 260);margin-bottom:14px;letter-spacing:0.05em">共同浴場の文化</h3>
+          <p style="font-size:14px;line-height:2;color:oklch(42% 0.01 260);font-family:'Noto Serif JP',serif;letter-spacing:0.04em">日本の温泉は古来より、地域の人々が共に入浴する「共同浴場」として発展しました。素肌で向き合うことで、身分を超えた対等な関係が生まれます。この文化は「裸のつきあい」として今も大切にされています。</p>
+        </div>
+      </div>
+      <div style="background:#fff;padding:48px 40px;display:flex;gap:28px">
+        <div style="flex-shrink:0">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.16em;color:oklch(55% 0.06 255)">02</div>
+          <div style="width:1px;height:40px;background:oklch(88% 0.01 82);margin:10px auto"></div>
+        </div>
+        <div>
+          <h3 style="font-family:'Noto Serif JP',serif;font-size:17px;font-weight:500;color:oklch(14% 0.01 260);margin-bottom:14px;letter-spacing:0.05em">静けさと癒しの空間</h3>
+          <p style="font-size:14px;line-height:2;color:oklch(42% 0.01 260);font-family:'Noto Serif JP',serif;letter-spacing:0.04em">温泉は疲れを癒し、心身を整える場所です。大きな声や騒音は控え、静かに湯を楽しむことが求められます。他の利用者も同じく安らぎを求めていることを意識した行動が、皆の体験を豊かにします。</p>
+        </div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:oklch(92% 0.005 60)">
+      <div style="background:#fff;padding:48px 40px;display:flex;gap:28px">
+        <div style="flex-shrink:0">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.16em;color:oklch(55% 0.06 255)">03</div>
+          <div style="width:1px;height:40px;background:oklch(88% 0.01 82);margin:10px auto"></div>
+        </div>
+        <div>
+          <h3 style="font-family:'Noto Serif JP',serif;font-size:17px;font-weight:500;color:oklch(14% 0.01 260);margin-bottom:14px;letter-spacing:0.05em">施設のルールを守る</h3>
+          <p style="font-size:14px;line-height:2;color:oklch(42% 0.01 260);font-family:'Noto Serif JP',serif;letter-spacing:0.04em">各温泉施設にはそれぞれの歴史と運営方針があります。施設のルールはすべての利用者が快適に過ごすための大切な取り決めです。掲示された案内に従いご利用ください。</p>
+        </div>
+      </div>
+      <!-- Photo -->
+      <div style="position:relative;min-height:220px;overflow:hidden">
+        <img src="uploads/onsen3_c.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ マナー ═══ -->
+<section id="manners" data-screen-label="マナー" style="padding:100px 72px;background:oklch(97% 0.007 60)">
+  <div style="max-width:1100px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:280px 1fr;gap:80px;align-items:start">
+      <div>
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:oklch(55% 0.01 260);letter-spacing:0.2em;margin-bottom:12px">Onsen Etiquette</div>
+        <h2 style="font-family:'Noto Serif JP',serif;font-size:34px;font-weight:300;letter-spacing:0.1em;line-height:1.55;color:oklch(12% 0.01 260)">温泉<br>マナー</h2>
+        <div style="width:32px;height:1px;background:oklch(62% 0.07 82);margin:24px 0"></div>
+        <p style="font-size:13px;color:oklch(48% 0.01 260);font-family:'Noto Serif JP',serif;line-height:1.9;letter-spacing:0.04em">日本の温泉文化を楽しむための基本マナーです。</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:oklch(90% 0.005 60)">
+        <div style="background:#fff;padding:28px 24px">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:10px;color:oklch(55% 0.06 255);letter-spacing:0.14em;margin-bottom:12px">01</div>
+          <h4 style="font-family:'Noto Serif JP',serif;font-size:14px;font-weight:500;color:oklch(14% 0.01 260);margin-bottom:10px;letter-spacing:0.04em;line-height:1.6">入浴前に体を洗う</h4>
+          <p style="font-size:12px;line-height:1.9;color:oklch(48% 0.01 260);font-family:'Noto Serif JP',serif;letter-spacing:0.03em">シャワーで体を清めてから湯船に入りましょう。共用の湯を清潔に保つための基本マナーです。</p>
+        </div>
+        <div style="background:#fff;padding:28px 24px">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:10px;color:oklch(55% 0.06 255);letter-spacing:0.14em;margin-bottom:12px">02</div>
+          <h4 style="font-family:'Noto Serif JP',serif;font-size:14px;font-weight:500;color:oklch(14% 0.01 260);margin-bottom:10px;letter-spacing:0.04em;line-height:1.6">タオルを湯船に入れない</h4>
+          <p style="font-size:12px;line-height:1.9;color:oklch(48% 0.01 260);font-family:'Noto Serif JP',serif;letter-spacing:0.03em">タオルは湯船の外で使用します。湯船の縁の上に置くか、頭上に折りたたんでおきましょう。</p>
+        </div>
+        <div style="background:#fff;padding:28px 24px">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:10px;color:oklch(55% 0.06 255);letter-spacing:0.14em;margin-bottom:12px">03</div>
+          <h4 style="font-family:'Noto Serif JP',serif;font-size:14px;font-weight:500;color:oklch(14% 0.01 260);margin-bottom:10px;letter-spacing:0.04em;line-height:1.6">静かに利用する</h4>
+          <p style="font-size:12px;line-height:1.9;color:oklch(48% 0.01 260);font-family:'Noto Serif JP',serif;letter-spacing:0.03em">大きな声や騒音は他の方の静寂を妨げます。心身を癒す空間として静かにお楽しみください。</p>
+        </div>
+        <div style="background:#fff;padding:28px 24px">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:10px;color:oklch(55% 0.06 255);letter-spacing:0.14em;margin-bottom:12px">04</div>
+          <h4 style="font-family:'Noto Serif JP',serif;font-size:14px;font-weight:500;color:oklch(14% 0.01 260);margin-bottom:10px;letter-spacing:0.04em;line-height:1.6">写真撮影は禁止</h4>
+          <p style="font-size:12px;line-height:1.9;color:oklch(48% 0.01 260);font-family:'Noto Serif JP',serif;letter-spacing:0.03em">浴室内でのスマートフォンや撮影機器の使用は、他の利用者のプライバシーを侵害します。</p>
+        </div>
+        <div style="background:#fff;padding:28px 24px">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:10px;color:oklch(55% 0.06 255);letter-spacing:0.14em;margin-bottom:12px">05</div>
+          <h4 style="font-family:'Noto Serif JP',serif;font-size:14px;font-weight:500;color:oklch(14% 0.01 260);margin-bottom:10px;letter-spacing:0.04em;line-height:1.6">飲酒後の入浴に注意</h4>
+          <p style="font-size:12px;line-height:1.9;color:oklch(48% 0.01 260);font-family:'Noto Serif JP',serif;letter-spacing:0.03em">飲酒後の入浴は血圧に影響を与えます。十分に時間を置いてからご入浴ください。</p>
+        </div>
+        <div style="background:#fff;padding:28px 24px">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:10px;color:oklch(55% 0.06 255);letter-spacing:0.14em;margin-bottom:12px">06</div>
+          <h4 style="font-family:'Noto Serif JP',serif;font-size:14px;font-weight:500;color:oklch(14% 0.01 260);margin-bottom:10px;letter-spacing:0.04em;line-height:1.6">施設のルールを守る</h4>
+          <p style="font-size:12px;line-height:1.9;color:oklch(48% 0.01 260);font-family:'Noto Serif JP',serif;letter-spacing:0.03em">各施設には独自の利用規則があります。掲示された案内をよく読み、従業員の指示に従ってください。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section id="faq" data-screen-label="FAQ" style="padding:100px 72px;background:#fff">
+  <div style="max-width:860px;margin:0 auto">
+    <div style="margin-bottom:64px">
+      <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:oklch(55% 0.01 260);letter-spacing:0.2em;margin-bottom:12px">Frequently Asked Questions</div>
+      <h2 style="font-family:'Noto Serif JP',serif;font-size:34px;font-weight:300;color:oklch(12% 0.01 260);letter-spacing:0.1em">よくあるご質問</h2>
+    </div>
+    <div style="border-top:1px solid oklch(90% 0.005 60)">
+      <sc-for list="{{ faqs }}" as="faq" hint-placeholder-count="5">
+        <div style="border-bottom:1px solid oklch(90% 0.005 60)">
+          <button onClick="{{ faq.onToggle }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:24px 0;background:transparent;border:none;cursor:pointer;text-align:left;gap:24px">
+            <span style="font-family:'Noto Serif JP',serif;font-size:15px;color:oklch(14% 0.01 260);letter-spacing:0.05em;line-height:1.6">{{ faq.q }}</span>
+            <span style="font-size:18px;color:oklch(48% 0.01 260);flex-shrink:0;width:20px;text-align:center;line-height:1;font-weight:300;font-family:'Noto Sans JP',sans-serif">{{ faq.openIcon }}</span>
+          </button>
+          <sc-if value="{{ faq.isOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:0 40px 28px 0">
+              <p style="font-family:'Noto Serif JP',serif;font-size:14px;color:oklch(42% 0.01 260);line-height:2;letter-spacing:0.04em">{{ faq.a }}</p>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ CTA ═══ -->
+<section data-screen-label="CTA" style="position:relative;padding:120px 72px;overflow:hidden;background:oklch(14% 0.02 260);text-align:center">
+  <!-- Photo placeholder behind CTA -->
+  <div style="position:absolute;inset:0;background:repeating-linear-gradient(-45deg,oklch(18% 0.02 260),oklch(18% 0.02 260) 3px,oklch(12% 0.018 260) 3px,oklch(12% 0.018 260) 22px);opacity:0.5"></div>
+  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none">
+    <div style="font-family:monospace;font-size:10px;color:rgba(255,255,255,0.18);letter-spacing:0.1em">夜景・湯けむりイメージ写真（任意）</div>
+  </div>
+  <div style="position:relative;z-index:2;max-width:760px;margin:0 auto">
+    <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:oklch(60% 0.04 255);letter-spacing:0.22em;margin-bottom:20px">Discover Japan's Onsen Culture</div>
+    <h2 style="font-family:'Noto Serif JP',serif;font-size:32px;font-weight:300;color:#fff;letter-spacing:0.1em;line-height:1.7;margin-bottom:18px">日本の温泉文化について<br>もっと知る</h2>
+    <p style="font-size:14px;color:oklch(72% 0.01 82);font-family:'Noto Serif JP',serif;line-height:2;margin-bottom:28px;letter-spacing:0.05em">日本の温泉が育んだ文化、歴史、効能について。<br>「温泉文化」サイトで詳しくご覧いただけます。</p>
+    <div style="width:40px;height:1px;background:oklch(50% 0.04 255);margin:0 auto 28px"></div>
+    <p style="font-size:15px;color:#fff;font-family:'Noto Serif JP',serif;line-height:2;margin-bottom:12px;letter-spacing:0.06em;font-weight:300">日本が世界に誇る多様な温泉文化。</p>
+    <p style="font-size:14px;color:oklch(72% 0.01 82);font-family:'Noto Serif JP',serif;line-height:2;margin-bottom:44px;letter-spacing:0.05em">およそ3000か所の温泉地が脈々と紡いできた温泉文化を見つめ直し、<br>未来へと継承、発展させていくことを目指しています。<br>温泉文化をユネスコ無形文化遺産へ！</p>
+    <a href="#" style="display:inline-flex;align-items:center;gap:12px;padding:14px 40px;border:1px solid rgba(255,255,255,0.45);color:rgba(255,255,255,0.9);font-family:'Noto Sans JP',sans-serif;font-size:13px;letter-spacing:0.1em" style-hover="background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.7)">
+      「温泉文化」ユネスコ無形文化遺産全国推進協議会サイトへ →
+    </a>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer style="padding:64px 72px 48px;background:oklch(14% 0.015 260)">
+  <div style="max-width:1100px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:56px;margin-bottom:52px">
+      <div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:16px;font-weight:500;color:oklch(90% 0.008 82);letter-spacing:0.08em;margin-bottom:14px">温泉タトゥー対応ガイド</div>
+        <p style="font-size:14px;color:oklch(68% 0.008 82);line-height:1.9;font-family:'Noto Serif JP',serif;letter-spacing:0.04em;margin-bottom:22px">日本全国の温泉・旅館・ホテルのタトゥー対応状況を案内する公式特設サイトです。</p>
+        <div style="padding-top:18px;border-top:1px solid oklch(24% 0.02 260)">
+          <div style="font-size:13px;color:oklch(58% 0.008 82);font-family:'Noto Serif JP',serif;margin-bottom:6px">運営：全国旅館ホテル生活衛生同業組合連合会（全旅連）</div>
+          <div style="font-size:13px;color:oklch(58% 0.008 82);font-family:'Noto Serif JP',serif">協力：STAYNAVI</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;color:oklch(55% 0.008 82);letter-spacing:0.12em;margin-bottom:18px;font-family:'Noto Sans JP',sans-serif">MENU</div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <a href="#tattoo-info" style="font-size:14px;color:oklch(75% 0.008 82);font-family:'Noto Serif JP',serif" style-hover="color:oklch(92% 0.008 82)">タトゥーについて</a>
+          <a href="#staynavi" style="font-size:14px;color:oklch(75% 0.008 82);font-family:'Noto Serif JP',serif" style-hover="color:oklch(92% 0.008 82)">施設を探す</a>
+          <a href="#culture" style="font-size:14px;color:oklch(75% 0.008 82);font-family:'Noto Serif JP',serif" style-hover="color:oklch(92% 0.008 82)">温泉文化</a>
+          <a href="#manners" style="font-size:14px;color:oklch(75% 0.008 82);font-family:'Noto Serif JP',serif" style-hover="color:oklch(92% 0.008 82)">温泉マナー</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;color:oklch(55% 0.008 82);letter-spacing:0.12em;margin-bottom:18px;font-family:'Noto Sans JP',sans-serif">SUPPORT</div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <a href="#faq" style="font-size:14px;color:oklch(75% 0.008 82);font-family:'Noto Serif JP',serif" style-hover="color:oklch(92% 0.008 82)">よくあるご質問</a>
+          <a href="#" style="font-size:14px;color:oklch(75% 0.008 82);font-family:'Noto Serif JP',serif" style-hover="color:oklch(92% 0.008 82)">お問い合わせ</a>
+          <a href="#news" style="font-size:14px;color:oklch(75% 0.008 82);font-family:'Noto Serif JP',serif" style-hover="color:oklch(92% 0.008 82)">お知らせ</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;color:oklch(55% 0.008 82);letter-spacing:0.12em;margin-bottom:18px;font-family:'Noto Sans JP',sans-serif">LEGAL</div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <a href="#" style="font-size:14px;color:oklch(75% 0.008 82);font-family:'Noto Serif JP',serif" style-hover="color:oklch(92% 0.008 82)">利用規約</a>
+          <a href="#" style="font-size:14px;color:oklch(75% 0.008 82);font-family:'Noto Serif JP',serif" style-hover="color:oklch(92% 0.008 82)">プライバシーポリシー</a>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid oklch(24% 0.02 260)">
+      <p style="font-size:13px;color:oklch(55% 0.008 82);font-family:'Noto Serif JP',serif;letter-spacing:0.05em">© 2024 全国旅館ホテル生活衛生同業組合連合会（全旅連）. All rights reserved.</p>
+      <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:oklch(50% 0.008 82);letter-spacing:0.1em">Powered by STAYNAVI</span>
+    </div>
+  </div>
+</footer>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { openFaq: null };
+
+  faqs = [
+    { q:'タトゥーがある場合、どうすれば温泉を利用できますか？', a:'施設によって対応が異なります。STAYNAVIで施設ごとの対応状況（制限なし・条件付き・貸切風呂のみ・利用不可）を確認してから、事前に施設へご連絡されることをおすすめします。' },
+    { q:'医療タトゥーは利用できますか？', a:'医療タトゥーについても施設によって対応が異なります。乳がん術後の乳輪再建、白斑・傷跡治療などの医療目的のタトゥーについて個別相談を受け付けている施設もあります。STAYNAVIの「医療タトゥー相談可」フィルターで絞り込むか、直接施設にお問い合わせください。' },
+    { q:'カバーシールとは何ですか？', a:'タトゥーを肌色の不透明シールで覆い、他のお客様から見えない状態にすることです。「カバーシール可」の施設では、シールを使用することで大浴場をご利用いただける場合があります。施設によってはシールのご用意もございます。' },
+    { q:'貸切風呂・家族風呂とは？', a:'家族やグループだけでご利用いただけるプライベートな浴槽です。「貸切風呂のみ利用可」の施設では大浴場はご利用いただけませんが、貸切風呂での入浴が可能な場合があります。事前予約が必要な施設がほとんどです。' },
+    { q:'外国人でも利用できますか？', a:'このサイトに掲載されている施設はすべて外国人旅行者の方もご利用いただけます。STAYNAVIの「外国語対応」フィルターで英語等の案内に対応した施設を絞り込むことができます。' },
+    { q:'施設によって対応が異なるのはなぜですか？', a:'日本の温泉施設は、何百年もの共同浴場文化を守りながら、多様なお客様をお迎えするため、それぞれの施設が独自の判断で運営方針を定めています。本サイトでは各施設の方針を尊重しながら、正確な情報をお届けします。' },
+  ];
+
+  renderVals() {
+    const { openFaq } = this.state;
+    const faqs = this.faqs.map((faq, i) => ({
+      ...faq,
+      isOpen: openFaq === i,
+      openIcon: openFaq === i ? '−' : '+',
+      onToggle: () => this.setState(s => ({ openFaq: s.openFaq === i ? null : i })),
+    }));
+    return { faqs };
+  }
+}
+</script>
+</body>
+</html>
