@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif; background: #F0F0F0; color: #333; min-height: 100vh; }
+    select, input, button { font-family: inherit; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+  </style>
+</helmet>
+
+<!-- HEADER -->
+<header style="background:#1B3D8A; height:64px; display:flex; align-items:center; justify-content:space-between; padding:0 28px; box-shadow:0 2px 6px rgba(0,0,0,.25); position:relative; z-index:10;">
+  <div style="display:flex; align-items:flex-end; gap:8px; cursor:pointer;" onClick="{{ goHome }}">
+    <div style="position:relative;">
+      <div style="font-size:8px; font-weight:500; letter-spacing:1.5px; color:rgba(255,255,255,.6); position:absolute; top:-10px; left:0;">公式サイト</div>
+      <div style="font-size:26px; font-weight:700; color:#fff; letter-spacing:2px; line-height:1;">STAYNAVI</div>
+    </div>
+    <div style="font-size:9px; color:rgba(255,255,255,.55); letter-spacing:.5px; padding-bottom:2px;">検索予約サービス</div>
+  </div>
+  <nav style="display:flex; align-items:stretch; height:64px; position:absolute; left:50%; transform:translateX(-50%);">
+    <a href="#" style="color:#fff; text-decoration:none; font-size:14px; font-weight:500; padding:0 24px; display:flex; align-items:center; border-right:1px solid rgba(255,255,255,.18); letter-spacing:.5px;">宿泊</a>
+    <a href="#" style="color:#fff; text-decoration:none; font-size:14px; font-weight:500; padding:0 24px; display:flex; align-items:center; border-right:1px solid rgba(255,255,255,.18); letter-spacing:.5px;">観光</a>
+    <a href="#" style="color:#fff; text-decoration:none; font-size:14px; font-weight:500; padding:0 24px; display:flex; align-items:center; letter-spacing:.5px;">ふるさと納税</a>
+  </nav>
+  <div style="display:flex; align-items:center; gap:22px;">
+    <div style="display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer; color:rgba(255,255,255,.8);">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+      <span style="font-size:10px;">はじめての方</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer; color:rgba(255,255,255,.8);">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span style="font-size:10px;">会員登録</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer; color:rgba(255,255,255,.8);">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
+      <span style="font-size:10px;">ログイン</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer; color:rgba(255,255,255,.8);">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <span style="font-size:10px;">メニュー</span>
+    </div>
+  </div>
+</header>
+
+<!-- ===== SEARCH VIEW ===== -->
+<sc-if value="{{ isSearch }}" hint-placeholder-val="{{ true }}">
+<main style="max-width:900px; margin:0 auto; padding:48px 20px 80px; animation:fadeIn .2s ease;">
+
+  <div style="background:#fff; border-radius:4px; box-shadow:0 1px 6px rgba(0,0,0,.09); overflow:hidden;">
+    <div style="padding:32px 48px 0;">
+      <div style="display:flex; align-items:center; gap:14px; margin-bottom:10px;">
+        <div style="width:4px; height:22px; background:#1B3D8A; border-radius:2px; flex-shrink:0;"></div>
+        <h2 style="font-size:18px; font-weight:700; color:#1a1a1a; letter-spacing:.3px;">タトゥー対応施設検索</h2>
+      </div>
+      <p style="font-size:13px; color:#777; line-height:1.7; padding-left:18px; margin-bottom:32px;">タトゥーポリシーを選択して、対応施設を検索することができます。複数選択可能です。</p>
+      <div style="border-top:1px solid #EBEBEB;"></div>
+    </div>
+
+    <div style="padding:32px 48px;">
+      <!-- Tattoo Policy -->
+      <div style="margin-bottom:32px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+          <span style="font-size:13px; font-weight:700; color:#444;">タトゥーポリシー</span>
+          <span style="font-size:11px; color:#aaa; background:#F5F5F5; padding:2px 8px; border-radius:10px;">複数選択可</span>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+
+          <div style="{{ card0Style }}" onClick="{{ toggle0 }}">
+            <div style="flex-shrink:0; width:42px; height:42px; display:flex; align-items:center; justify-content:center;">
+              <svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="13" fill="#4A90D9"/></svg>
+            </div>
+            <div style="flex:1;">
+              <div style="font-size:14px; font-weight:700; color:#1a1a1a; margin-bottom:3px;">制限なし</div>
+              <div style="font-size:11px; color:#999;">大浴場を自由にご利用可</div>
+            </div>
+            <div style="display:{{ check0 }}; width:20px; height:20px; background:#1B3D8A; border-radius:50%; align-items:center; justify-content:center; flex-shrink:0;">
+              <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+
+          <div style="{{ card1Style }}" onClick="{{ toggle1 }}">
+            <div style="flex-shrink:0; width:42px; height:42px; display:flex; align-items:center; justify-content:center;">
+              <svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="12" fill="none" stroke="#aaa" stroke-width="2"/></svg>
+            </div>
+            <div style="flex:1;">
+              <div style="font-size:14px; font-weight:700; color:#1a1a1a; margin-bottom:3px;">条件付き利用可</div>
+              <div style="font-size:11px; color:#999;">カバーシール等の条件あり</div>
+            </div>
+            <div style="display:{{ check1 }}; width:20px; height:20px; background:#1B3D8A; border-radius:50%; align-items:center; justify-content:center; flex-shrink:0;">
+              <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+
+          <div style="{{ card2Style }}" onClick="{{ toggle2 }}">
+            <div style="flex-shrink:0; width:42px; height:42px; display:flex; align-items:center; justify-content:center;">
+              <svg width="30" height="30" viewBox="0 0 30 30"><polygon points="15,3 28,27 2,27" fill="none" stroke="#aaa" stroke-width="2" stroke-linejoin="round"/></svg>
+            </div>
+            <div style="flex:1;">
+              <div style="font-size:14px; font-weight:700; color:#1a1a1a; margin-bottom:3px;">貸切風呂のみ</div>
+              <div style="font-size:11px; color:#999;">プライベート浴槽のみ可</div>
+            </div>
+            <div style="display:{{ check2 }}; width:20px; height:20px; background:#1B3D8A; border-radius:50%; align-items:center; justify-content:center; flex-shrink:0;">
+              <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+
+          <div style="{{ card3Style }}" onClick="{{ toggle3 }}">
+            <div style="flex-shrink:0; width:42px; height:42px; display:flex; align-items:center; justify-content:center;">
+              <svg width="30" height="30" viewBox="0 0 30 30"><line x1="7" y1="7" x2="23" y2="23" stroke="#aaa" stroke-width="2.2" stroke-linecap="round"/><line x1="23" y1="7" x2="7" y2="23" stroke="#aaa" stroke-width="2.2" stroke-linecap="round"/></svg>
+            </div>
+            <div style="flex:1;">
+              <div style="font-size:14px; font-weight:700; color:#1a1a1a; margin-bottom:3px;">利用不可</div>
+              <div style="font-size:11px; color:#999;">施設方針により不可</div>
+            </div>
+            <div style="display:{{ check3 }}; width:20px; height:20px; background:#1B3D8A; border-radius:50%; align-items:center; justify-content:center; flex-shrink:0;">
+              <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+
+          <div style="{{ card4Style }}" onClick="{{ toggle4 }}">
+            <div style="flex-shrink:0; width:42px; height:42px; display:flex; align-items:center; justify-content:center;">
+              <svg width="26" height="26" viewBox="0 0 26 26"><rect x="3" y="3" width="20" height="20" fill="none" stroke="#aaa" stroke-width="2"/></svg>
+            </div>
+            <div style="flex:1;">
+              <div style="font-size:14px; font-weight:700; color:#1a1a1a; margin-bottom:3px;">医療タトゥーのみOK</div>
+              <div style="font-size:11px; color:#999;">医療目的のタトゥーに限り相談・利用可</div>
+            </div>
+            <div style="display:{{ check4 }}; width:20px; height:20px; background:#1B3D8A; border-radius:50%; align-items:center; justify-content:center; flex-shrink:0;">
+              <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div style="border-top:1px solid #EBEBEB; margin-bottom:24px;"></div>
+
+      <!-- Prefecture -->
+      <div style="display:flex; align-items:center; gap:24px; padding:8px 0; margin-bottom:16px;">
+        <label style="font-size:13px; font-weight:700; color:#444; width:96px; flex-shrink:0;">都道府県</label>
+        <div style="flex:1; position:relative;">
+          <select onChange="{{ onPrefChange }}" style="width:100%; padding:11px 36px 11px 14px; border:1px solid #D8D8D8; border-radius:3px; font-size:14px; color:#333; background:#fff; cursor:pointer; appearance:none; outline:none;">
+            <option value="">すべての都道府県</option>
+            <sc-for list="{{ prefectures }}" as="pref" hint-placeholder-count="0">
+              <option value="{{ pref }}">{{ pref }}</option>
+            </sc-for>
+          </select>
+          <div style="position:absolute; right:13px; top:50%; transform:translateY(-50%); pointer-events:none;">
+            <svg width="11" height="7" viewBox="0 0 11 7" fill="none"><path d="M1 1l4.5 4.5L10 1" stroke="#888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid #EBEBEB; margin-bottom:16px;"></div>
+
+      <!-- Keyword -->
+      <div style="display:flex; align-items:center; gap:24px; padding:8px 0; margin-bottom:32px;">
+        <label style="font-size:13px; font-weight:700; color:#444; width:96px; flex-shrink:0;">検索ワード</label>
+        <input type="text" value="{{ keyword }}" onChange="{{ onKeywordChange }}" placeholder="宿泊施設名又はキーワードを入力してください" style="flex:1; padding:11px 14px; border:1px solid #D8D8D8; border-radius:3px; font-size:14px; color:#333; outline:none; background:#fff;" />
+      </div>
+
+      <div style="border-top:1px solid #EBEBEB; margin-bottom:32px;"></div>
+
+      <div style="display:flex; justify-content:center;">
+        <button onClick="{{ search }}" style="display:flex; align-items:center; gap:10px; background:#1B3D8A; color:#fff; border:none; padding:14px 64px; font-size:15px; font-weight:700; border-radius:3px; cursor:pointer; letter-spacing:.8px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          検索する
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== RESULTS LIST ===== -->
+  <sc-if value="{{ searched }}" hint-placeholder-val="{{ false }}">
+    <div style="margin-top:24px; animation:fadeUp .3s ease;">
+
+      <!-- Result count bar -->
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:14px 20px; background:#fff; border-radius:4px; box-shadow:0 1px 4px rgba(0,0,0,.07); margin-bottom:16px;">
+        <div style="font-size:14px; color:#333;">
+          <strong style="font-size:18px; color:#1B3D8A;">{{ resultCount }}</strong>
+          <span style="margin-left:4px;">件の施設が見つかりました</span>
+          <span style="font-size:12px; color:#aaa; margin-left:8px;">（{{ displayRange }}件を表示）</span>
+        </div>
+        <div style="font-size:12px; color:#888;">並び替え：おすすめ順</div>
+      </div>
+
+      <!-- Facility cards -->
+      <sc-for list="{{ facilities }}" as="facility" hint-placeholder-count="3">
+        <div onClick="{{ facility.onSelect }}" style="background:#fff; border-radius:4px; box-shadow:0 1px 4px rgba(0,0,0,.07); margin-bottom:12px; cursor:pointer; overflow:hidden; display:flex; align-items:stretch; transition:box-shadow .15s;">
+          <!-- Color side stripe (policy color) -->
+          <div style="width:5px; background:{{ facility.policyColor }}; flex-shrink:0;"></div>
+          <!-- Content -->
+          <div style="flex:1; padding:20px 24px; display:flex; align-items:center; gap:20px;">
+            <!-- Left: name + location + tags -->
+            <div style="flex:1; min-width:0;">
+              <div style="font-size:16px; font-weight:700; color:#1a1a1a; margin-bottom:4px;">{{ facility.name }}</div>
+              <div style="display:flex; align-items:center; gap:5px; margin-bottom:12px;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span style="font-size:12px; color:#888;">{{ facility.location }}</span>
+              </div>
+              <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                <sc-for list="{{ facility.tags }}" as="tag" hint-placeholder-count="0">
+                  <span style="font-size:11px; color:#666; background:#F2F2F2; padding:3px 9px; border-radius:2px;">{{ tag }}</span>
+                </sc-for>
+              </div>
+            </div>
+            <!-- Right: policy badge + price + cta -->
+            <div style="display:flex; flex-direction:column; align-items:flex-end; gap:10px; flex-shrink:0;">
+              <div style="display:inline-flex; align-items:center; gap:5px; padding:4px 12px; border-radius:12px; font-size:11px; font-weight:700; background:{{ facility.policyLightColor }}; color:{{ facility.policyColor }};">{{ facility.policyLabel }}</div>
+              <div style="text-align:right;">
+                <div style="font-size:13px; color:#333; font-weight:500;">¥{{ facility.priceStr }}<span style="font-size:11px; color:#aaa; font-weight:400;">〜/泊・1名</span></div>
+              </div>
+              <div style="display:flex; align-items:center; gap:4px; font-size:12px; color:#1B3D8A; font-weight:600;">
+                詳細を見る
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+
+    </div>
+  </sc-if>
+
+</main>
+</sc-if>
+
+<!-- ===== DETAIL VIEW ===== -->
+<sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
+<main style="max-width:900px; margin:0 auto; padding:32px 20px 80px; animation:fadeIn .25s ease;">
+
+  <!-- Back button -->
+  <button onClick="{{ goBack }}" style="display:inline-flex; align-items:center; gap:6px; background:none; border:none; color:#1B3D8A; font-size:13px; font-weight:600; cursor:pointer; padding:0; margin-bottom:24px;">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    検索結果に戻る
+  </button>
+
+  <div style="background:#fff; border-radius:4px; box-shadow:0 1px 6px rgba(0,0,0,.09); overflow:hidden;">
+
+    <!-- Facility hero image placeholder -->
+    <div style="width:100%; height:220px; background:repeating-linear-gradient(45deg,#f0eeec,#f0eeec 12px,#e8e6e4 12px,#e8e6e4 24px); display:flex; align-items:center; justify-content:center; position:relative;">
+      <span style="font-family:monospace; font-size:13px; color:#aaa; background:rgba(255,255,255,.85); padding:8px 18px; border-radius:4px;">施設写真</span>
+      <!-- Policy badge overlay -->
+      <div style="position:absolute; top:16px; right:16px; display:flex; align-items:center; gap:7px; padding:7px 14px; border-radius:20px; font-size:12px; font-weight:700; background:{{ detailPolicyLightColor }}; color:{{ detailPolicyColor }}; box-shadow:0 2px 6px rgba(0,0,0,.1);">
+        <!-- Policy icon -->
+        <sc-if value="{{ detailIsPol0 }}" hint-placeholder-val="{{ false }}">
+          <svg width="16" height="16" viewBox="0 0 30 30"><circle cx="15" cy="15" r="13" fill="{{ detailPolicyColor }}"/></svg>
+        </sc-if>
+        <sc-if value="{{ detailIsPol1 }}" hint-placeholder-val="{{ false }}">
+          <svg width="16" height="16" viewBox="0 0 30 30"><circle cx="15" cy="15" r="12" fill="none" stroke="{{ detailPolicyColor }}" stroke-width="2.5"/></svg>
+        </sc-if>
+        <sc-if value="{{ detailIsPol2 }}" hint-placeholder-val="{{ false }}">
+          <svg width="16" height="16" viewBox="0 0 30 30"><polygon points="15,3 28,27 2,27" fill="none" stroke="{{ detailPolicyColor }}" stroke-width="2.5" stroke-linejoin="round"/></svg>
+        </sc-if>
+        <sc-if value="{{ detailIsPol3 }}" hint-placeholder-val="{{ false }}">
+          <svg width="16" height="16" viewBox="0 0 30 30"><line x1="7" y1="7" x2="23" y2="23" stroke="{{ detailPolicyColor }}" stroke-width="2.5" stroke-linecap="round"/><line x1="23" y1="7" x2="7" y2="23" stroke="{{ detailPolicyColor }}" stroke-width="2.5" stroke-linecap="round"/></svg>
+        </sc-if>
+        <sc-if value="{{ detailIsPol4 }}" hint-placeholder-val="{{ false }}">
+          <svg width="16" height="16" viewBox="0 0 26 26"><rect x="3" y="3" width="20" height="20" fill="none" stroke="{{ detailPolicyColor }}" stroke-width="2.5"/></svg>
+        </sc-if>
+        {{ detailPolicyLabel }}
+      </div>
+    </div>
+
+    <!-- Facility name & location -->
+    <div style="padding:28px 40px 24px; border-bottom:1px solid #EBEBEB;">
+      <h1 style="font-size:22px; font-weight:700; color:#1a1a1a; margin-bottom:8px;">{{ detailName }}</h1>
+      <div style="display:flex; align-items:center; gap:5px;">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span style="font-size:13px; color:#888;">{{ detailLocation }}</span>
+      </div>
+    </div>
+
+    <!-- Info grid -->
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0; border-bottom:1px solid #EBEBEB;">
+      <div style="padding:20px 28px; border-right:1px solid #EBEBEB;">
+        <div style="font-size:11px; color:#aaa; font-weight:700; letter-spacing:.5px; margin-bottom:6px;">料金</div>
+        <div style="font-size:18px; font-weight:700; color:#1B3D8A;">¥{{ detailPriceStr }}</div>
+        <div style="font-size:11px; color:#aaa; margin-top:2px;">〜（1泊1名・税込）</div>
+      </div>
+      <div style="padding:20px 28px; border-right:1px solid #EBEBEB;">
+        <div style="font-size:11px; color:#aaa; font-weight:700; letter-spacing:.5px; margin-bottom:6px;">住所</div>
+        <div style="font-size:13px; color:#444; line-height:1.5;">{{ detailAddress }}</div>
+      </div>
+      <div style="padding:20px 28px;">
+        <div style="font-size:11px; color:#aaa; font-weight:700; letter-spacing:.5px; margin-bottom:6px;">電話番号</div>
+        <div style="font-size:14px; color:#444; font-weight:500;">{{ detailTel }}</div>
+      </div>
+    </div>
+
+    <!-- Tattoo policy detail -->
+    <div style="padding:24px 40px; border-bottom:1px solid #EBEBEB; background:#FAFAFA;">
+      <div style="font-size:12px; font-weight:700; color:#aaa; letter-spacing:.5px; margin-bottom:10px;">タトゥーポリシー</div>
+      <div style="display:flex; align-items:flex-start; gap:14px;">
+        <div style="width:44px; height:44px; border-radius:50%; background:{{ detailPolicyLightColor }}; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+          <sc-if value="{{ detailIsPol0 }}" hint-placeholder-val="{{ false }}">
+            <svg width="22" height="22" viewBox="0 0 30 30"><circle cx="15" cy="15" r="13" fill="{{ detailPolicyColor }}"/></svg>
+          </sc-if>
+          <sc-if value="{{ detailIsPol1 }}" hint-placeholder-val="{{ false }}">
+            <svg width="22" height="22" viewBox="0 0 30 30"><circle cx="15" cy="15" r="12" fill="none" stroke="{{ detailPolicyColor }}" stroke-width="2.5"/></svg>
+          </sc-if>
+          <sc-if value="{{ detailIsPol2 }}" hint-placeholder-val="{{ false }}">
+            <svg width="22" height="22" viewBox="0 0 30 30"><polygon points="15,3 28,27 2,27" fill="none" stroke="{{ detailPolicyColor }}" stroke-width="2.5" stroke-linejoin="round"/></svg>
+          </sc-if>
+          <sc-if value="{{ detailIsPol3 }}" hint-placeholder-val="{{ false }}">
+            <svg width="22" height="22" viewBox="0 0 30 30"><line x1="7" y1="7" x2="23" y2="23" stroke="{{ detailPolicyColor }}" stroke-width="2.5" stroke-linecap="round"/><line x1="23" y1="7" x2="7" y2="23" stroke="{{ detailPolicyColor }}" stroke-width="2.5" stroke-linecap="round"/></svg>
+          </sc-if>
+          <sc-if value="{{ detailIsPol4 }}" hint-placeholder-val="{{ false }}">
+            <svg width="22" height="22" viewBox="0 0 26 26"><rect x="3" y="3" width="20" height="20" fill="none" stroke="{{ detailPolicyColor }}" stroke-width="2.5"/></svg>
+          </sc-if>
+        </div>
+        <div>
+          <div style="font-size:15px; font-weight:700; color:{{ detailPolicyColor }}; margin-bottom:4px;">{{ detailPolicyLabel }}</div>
+          <div style="font-size:13px; color:#666; line-height:1.7;">{{ detailDesc }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- About -->
+    <div style="padding:28px 40px 32px;">
+      <div style="font-size:12px; font-weight:700; color:#aaa; letter-spacing:.5px; margin-bottom:12px;">施設について</div>
+      <p style="font-size:14px; color:#444; line-height:1.9; margin-bottom:32px;">{{ detailAbout }}</p>
+
+      <div style="display:flex; justify-content:center; gap:16px;">
+        <button onClick="{{ goBack }}" style="padding:12px 32px; border:2px solid #1B3D8A; background:#fff; color:#1B3D8A; font-size:14px; font-weight:700; border-radius:3px; cursor:pointer; letter-spacing:.5px;">
+          ← 検索結果に戻る
+        </button>
+        <button style="display:flex; align-items:center; gap:8px; padding:12px 40px; background:#E53E3E; border:none; color:#fff; font-size:14px; font-weight:700; border-radius:3px; cursor:pointer; letter-spacing:.5px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          この施設を予約する
+        </button>
+      </div>
+    </div>
+
+  </div>
+</main>
+</sc-if>
+
+<!-- Footer -->
+<footer style="background:#E4E4E4; padding:14px; text-align:center;">
+  <a href="#" style="font-size:12px; color:#888; text-decoration:none;">▲ PAGE TOP</a>
+</footer>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    selected: [false, false, false, false, false],
+    prefecture: '',
+    keyword: '',
+    searched: false,
+    view: 'search',   // 'search' | 'detail'
+    selectedId: null,
+  };
+
+  toggle = (i) => {
+    const next = [...this.state.selected];
+    next[i] = !next[i];
+    this.setState({ selected: next, searched: false });
+  };
+
+  cardStyle(i) {
+    const sel = this.state.selected[i];
+    return {
+      cursor: 'pointer',
+      border: sel ? '2px solid #1B3D8A' : '1px solid #E2E0DC',
+      background: sel ? '#EEF3FF' : '#FDFCFB',
+      borderRadius: '6px',
+      padding: '14px 16px',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '12px',
+      userSelect: 'none',
+      transition: 'border-color .12s, background .12s',
+    };
+  }
+
+  renderVals() {
+    const { selected, prefecture, keyword, searched, view, selectedId } = this.state;
+
+    const POLICIES = [
+      { label: '制限なし',         color: '#4A90D9', lightColor: '#EEF5FF' },
+      { label: '条件付き利用可',   color: '#52A86B', lightColor: '#EFF7F2' },
+      { label: '貸切風呂のみ',     color: '#E8963A', lightColor: '#FFF6EE' },
+      { label: '利用不可',         color: '#D94444', lightColor: '#FFF0F0' },
+      { label: '医療タトゥーのみOK', color: '#7B52C8', lightColor: '#F4EEFF' },
+    ];
+
+    const RAW_FACILITIES = [
+      { id:0, name:'湯元 はなの宿',                     location:'北海道 登別市',      policy:0, price:18000, tags:['大浴場','露天風呂','温泉'],           tel:'0143-84-0001', address:'北海道登別市登別温泉町1番地',      about:'登別温泉の中心に位置し、タトゥーのある方も大浴場を自由にご利用いただける開放的な宿です。硫黄泉と食塩泉の2種類の源泉を引いた大浴場と露天風呂で心も体もリフレッシュ。' },
+      { id:1, name:'温泉旅館 月明荘',                   location:'青森県 十和田市',     policy:1, price:14500, tags:['露天風呂','会席料理'],                 tel:'0176-23-0002', address:'青森県十和田市奥瀬123番地',            about:'十和田湖畔の静かな環境に佇む旅館。カバーシールをご使用いただくことで大浴場をご利用いただけます。フロントにて無料配布しております。' },
+      { id:2, name:'翠山亭 倶楽部 箱根',               location:'神奈川県 箱根町',     policy:2, price:32000, tags:['貸切露天','スパ','絶景'],               tel:'0460-82-0003', address:'神奈川県足柄下郡箱根町仙石原45番地',   about:'全棟に専用の露天貸切風呂を完備した高級旅館。大浴場はご利用いただけませんが、プライベートな空間で源泉温泉をお楽しみいただけます。' },
+      { id:3, name:'旅館 白雲',                         location:'長野県 山ノ内町',     policy:0, price:21000, tags:['源泉かけ流し','大浴場','家族風呂'],     tel:'0269-33-0004', address:'長野県下高井郡山ノ内町志賀高原67番地',  about:'志賀高原の麓に位置する老舗旅館。タトゥーのある方も大歓迎。源泉かけ流しの温泉をご自由にお楽しみください。夕食の信州郷土料理も好評です。' },
+      { id:4, name:'海辺の宿 潮風荘',                   location:'静岡県 伊東市',       policy:1, price:16500, tags:['海一望','露天風呂','海鮮料理'],         tel:'0557-37-0005', address:'静岡県伊東市松原89番地',              about:'相模湾を一望する絶好のロケーション。カバーシール着用にてご利用可能です。受付にて無料配布中。伊豆の新鮮な海の幸をご堪能いただけます。' },
+      { id:5, name:'城崎温泉 鶴屋',                     location:'兵庫県 豊岡市',       policy:2, price:27500, tags:['貸切露天','会席料理','温泉街'],         tel:'0796-32-0006', address:'兵庫県豊岡市城崎町湯島21番地',        about:'城崎温泉の情緒あふれる街並みに佇む旅館。大浴場はご利用いただけませんが、全お部屋に専用貸切露天風呂を完備。季節の但馬牛料理が好評です。' },
+      { id:6, name:'湯布院 夢想園',                     location:'大分県 由布市',       policy:0, price:38000, tags:['絶景露天','離れ','貸切風呂'],           tel:'0977-84-0007', address:'大分県由布市湯布院町川上34番地',       about:'由布岳を望む高台に位置する隠れ家的旅館。開放的な絶景露天風呂はどなたでも自由にご利用いただけます。全室露天風呂付きの離れで、贅沢なひとときを。' },
+      { id:7, name:'ホテル アジュール竹芝',             location:'東京都 港区',         policy:4, price:9800,  tags:['大浴場','サウナ','朝食付'],             tel:'03-0000-0008', address:'東京都港区海岸1丁目11番地',            about:'医療目的のタトゥーについては、フロントにてご相談の上ご利用いただけます。事前のご申告をお願いしております。東京湾を望む好立地です。' },
+    ];
+
+    const prefectures = ['北海道','青森県','岩手県','宮城県','秋田県','山形県','福島県','茨城県','栃木県','群馬県','埼玉県','千葉県','東京都','神奈川県','新潟県','富山県','石川県','福井県','山梨県','長野県','岐阜県','静岡県','愛知県','三重県','滋賀県','京都府','大阪府','兵庫県','奈良県','和歌山県','鳥取県','島根県','岡山県','広島県','山口県','徳島県','香川県','愛媛県','高知県','福岡県','佐賀県','長崎県','熊本県','大分県','宮崎県','鹿児島県','沖縄県'];
+
+    const facilities = RAW_FACILITIES.map(f => ({
+      ...f,
+      priceStr: f.price.toLocaleString('ja-JP'),
+      policyLabel: POLICIES[f.policy].label,
+      policyColor: POLICIES[f.policy].color,
+      policyLightColor: POLICIES[f.policy].lightColor,
+      onSelect: () => this.setState({ view: 'detail', selectedId: f.id }),
+    }));
+
+    const sel = selectedId !== null ? RAW_FACILITIES.find(f => f.id === selectedId) : null;
+    const selPolicy = sel ? POLICIES[sel.policy] : null;
+
+    return {
+      // Search form
+      prefectures,
+      card0Style: this.cardStyle(0),
+      card1Style: this.cardStyle(1),
+      card2Style: this.cardStyle(2),
+      card3Style: this.cardStyle(3),
+      card4Style: this.cardStyle(4),
+      check0: selected[0] ? 'flex' : 'none',
+      check1: selected[1] ? 'flex' : 'none',
+      check2: selected[2] ? 'flex' : 'none',
+      check3: selected[3] ? 'flex' : 'none',
+      check4: selected[4] ? 'flex' : 'none',
+      toggle0: () => this.toggle(0),
+      toggle1: () => this.toggle(1),
+      toggle2: () => this.toggle(2),
+      toggle3: () => this.toggle(3),
+      toggle4: () => this.toggle(4),
+      prefecture,
+      keyword,
+      onPrefChange: e => this.setState({ prefecture: e.target.value, searched: false }),
+      onKeywordChange: e => this.setState({ keyword: e.target.value, searched: false }),
+      search: () => this.setState({ searched: true }),
+
+      // View control
+      isSearch: view === 'search',
+      isDetail: view === 'detail',
+      goHome: () => this.setState({ view: 'search', searched: false, selectedId: null }),
+      goBack: () => this.setState({ view: 'search' }),
+
+      // Results
+      searched,
+      resultCount: 59,
+      displayRange: `1〜${facilities.length}`,
+      facilities,
+
+      // Detail
+      detailName: sel ? sel.name : '',
+      detailLocation: sel ? sel.location : '',
+      detailAddress: sel ? sel.address : '',
+      detailTel: sel ? sel.tel : '',
+      detailPriceStr: sel ? sel.price.toLocaleString('ja-JP') : '',
+      detailAbout: sel ? sel.about : '',
+      detailDesc: sel ? sel.about : '',
+      detailPolicyLabel: selPolicy ? selPolicy.label : '',
+      detailPolicyColor: selPolicy ? selPolicy.color : '#888',
+      detailPolicyLightColor: selPolicy ? selPolicy.lightColor : '#F5F5F5',
+      detailIsPol0: sel && sel.policy === 0,
+      detailIsPol1: sel && sel.policy === 1,
+      detailIsPol2: sel && sel.policy === 2,
+      detailIsPol3: sel && sel.policy === 3,
+      detailIsPol4: sel && sel.policy === 4,
+    };
+  }
+}
+
+</script>
+</body>
+</html>
